@@ -1,6 +1,6 @@
 # ALICE-Project
 ## The aim of the project
-The aim of project was to create some solution for bigger project-ALICE needs. 
+The aim of project was to create some solution for bigger project(ALICE)'s needs. 
 These needs were cooling and remote turning on/off system.
 
 ## Resources and tools
