@@ -13,5 +13,6 @@ The main operational unit in this system is Raspberry Pi. Its code was written i
 
 ## Project status
 Wooden box is finished.
-<br/>Other components aren't assembled yet.
-<br/>Overall in progress.
+<br/>Termometer and relay are assembled with Raspberry Pi Zero.
+<br/>Code is finished.
+<br/>Project is ready for testing with ALICE's testing electronics.
