@@ -9,7 +9,7 @@ The main operational unit in this system is Raspberry Pi. Its code was written i
 * wooden box
 * fans
 * temperature sensors
-* switch
+* relay
 
 ## Project status
 Wooden box is finished.
