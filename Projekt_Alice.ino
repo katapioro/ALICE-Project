@@ -1,16 +1,21 @@
 #include <OneWire.h>
 #include <DallasTemperature.h>
 
+//deklaracja pinów
 #define diodaPWM 4
 #define przycisk 3
 #define stycznik 2
 
-float temp = 0;
-int order = 0;
+//deklaracja zmiennych 
+float temp = 0; //temperatura
+int order = 0; //rozkaz 
+volatile int state = HIGH; // stan systemu
+
+//deklaracja termometru
 OneWire OneWire(12);
 DallasTemperature czujnik(&OneWire);
-volatile int state = HIGH;
 
+//funkcja obsługująca przerwanie od fizycznego przycisku 
 void funckjaObslugiPrzerwania() {
   if(state == HIGH)
   {
@@ -30,7 +35,7 @@ void funckjaObslugiPrzerwania() {
   
 }
 
-
+//funkcja obsługi komunikacji przez port szeregowy 
 void checkSerial() 
 {
   if (Serial.available()>0) 
@@ -67,8 +72,12 @@ void setup() {
 }
 
 void loop() {
+
+  //odczyt temperatury 
   czujnik.requestTemperatures();
   temp = czujnik.getTempCByIndex(0);
+
+  //obsługa wiatraków
          if (temp > 35)
          {
              analogWrite(diodaPWM, 250);
