@@ -17,13 +17,13 @@
 float temp = 0; //themperature
 int order = 0; //serial orders 
 volatile int system_state = LOW; // system state
-volatile int fan_state = LOW;
+volatile int fan_state = LOW; // fans state
 
 //thermometer declaration
 OneWire OneWire(12);
 DallasTemperature thermometer(&OneWire);
 
-//physical turning ON/OFF
+//physical button turning ON/OFF
 void changeOfStates() {
   if(system_state == HIGH)
   {
@@ -46,10 +46,10 @@ void changeOfStates() {
 //serial connection handling 
 void checkSerial() 
 {
-  if (Serial.available()>0) 
+  if (Serial.available()>0) //chcecking if serial connection is available
   { 
-    order = Serial.read();
-    if(order == '0')
+    order = Serial.read(); // readong orrder from serial
+    if(order == '0')  //checking order and performing given tasks
     {
       system_state = LOW;
       digitalWrite(LEDindicator,LOW);
@@ -97,38 +97,7 @@ void checkSerial()
     }
   }
 }
-//fan power controler
-/*void fanControl(float temp)
-{
-  if (fan_state == HIGH)
-  {
-    if (temp > 35)
-     {
-         analogWrite(PWM, 250);
-     }
-     else if (temp > 30)
-     {
-         analogWrite(PWM, 200);
-     }
-     else if (temp > 25)
-     {
-         analogWrite(PWM, 150);
-     }
-     else if (temp > 20)
-     {
-        analogWrite(PWM, 100);
-     }
-     else if (temp > 0)
-     {
-        analogWrite(PWM, 50);
-     }
-     else
-     {
-        analogWrite(PWM, 200);
-     }
-  }
-}  
-*/
+
 void setup() {
   pinMode(contactor, OUTPUT); //power contactor pin
   pinMode(PWM, OUTPUT); //PWM controll pin
@@ -146,7 +115,7 @@ void loop()
   //themperature read
   thermometer.requestTemperatures();
   temp = thermometer.getTempCByIndex(0);
-         
+ //fan power controll according to measured temperature        
  if (fan_state == HIGH)
   {
     if (temp > 35)
@@ -174,6 +143,7 @@ void loop()
         analogWrite(PWM, 200);
      }
   }
+ // button push detection 
  if(digitalRead(button) == LOW) 
  {
    changeOfStates();
